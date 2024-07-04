@@ -2,16 +2,11 @@ document.getElementById('searchButton').addEventListener('click', async () => {
     const term = document.getElementById('searchTerm').value;
     if (term) {
         const content = await fetchWikipediaContent(term);
-        // if (content.type === 'disambiguation') {
-        //     displayOptions(content);
-        // } else {
-        // }
-        speakText(content.extract);
+        speakText(content.source);
     }
 });
 
 async function fetchWikipediaContent(term) {
-    // const response = await fetch(`https://en.wikipedia.org/api/rest_v1/page/summary/${term}`);
     const response = await fetch(`https://pt.wikipedia.org/w/rest.php/v1/page/${term}`);
     const data = await response.json();
     return data;
@@ -24,7 +19,6 @@ function speakText(text) {
 
 function displayOptions(content) {
     const optionsContainer = document.createElement('div');
-    console.log(content.titles);
     content.titles.forEach(option => {
         const button = document.createElement('button');
         button.textContent = option.title;
